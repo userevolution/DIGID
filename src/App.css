@@ -1,0 +1,26 @@
+.bg-primary-color { background-color: #424867 !important;}
+.bg-secondary-color { background-color: #C2AB70 !important;}
+.text-secondary-color { color: #C2AB70 !important;}
+
+.min-height {
+    min-height: 100vh;
+}
+
+.navbar-nav .nav-link{
+    color: #C2AB70;
+}
+
+.title {
+    font-size: 3rem;
+}
+
+.hero-img{
+    width: 100%;
+    height: 700px;
+    padding: 2rem;
+    object-fit: contain;
+}
+
+.logo{ 
+    width: 100px;
+}
