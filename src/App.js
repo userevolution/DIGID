@@ -13,6 +13,7 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Login from './components/Login';
+import Profile from './components/Profile';
 
 function App() {
   const [idxMethod, setidxMethod] = useState(null);
@@ -37,10 +38,9 @@ function App() {
     setDescription(data.description)
   }
 
-  const updateProfile = async () => {
-    const name = "joe"
+  const updateProfile = async (newName) => {
     const description = "coding"
-    await window.idx?.set('basicProfile', { name, description })
+    await window.idx?.set('basicProfile', { name: newName, description })
     const data = await window.idx?.get('basicProfile')
     setName(data.name)
     setDescription(data.description)
@@ -54,6 +54,11 @@ function App() {
         <Route path="/login">
           <Login
             authenticate={authenticate}
+            />
+        </Route>
+        <Route path="/profile">
+          <Profile
+            updateProfile={updateProfile}
             idxId={idxId}
             name={name}
             description={description}
