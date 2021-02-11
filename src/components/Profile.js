@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Profile({ updateProfile, idxId, name, description }) {
+function Profile({ updateProfile, idxId, name, description, notes }) {
   const [newName, setNewName] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +20,7 @@ function Profile({ updateProfile, idxId, name, description }) {
   return (
     <div className="container" style={{ minHeight: "80vh" }}>
       <div className="row">
-        <div className="col-12 col-md-5">
+        <div className="col-12 col-md-4">
           <div className="card mt-3">
             <div className="card-body">
               <h1>Your Profile</h1>
@@ -50,7 +50,36 @@ function Profile({ updateProfile, idxId, name, description }) {
                   Update
                 </button>
               )}
+            </div>
+          </div>
+        </div>
 
+        <div className="col-12 col-md-8">
+          <div className="card mt-3">
+            <div className="card-body">
+              <div className="d-flex justify-content-between mb-3">
+                <h2>Your Files</h2>
+                <button className="btn  bg-secondary-color">
+                  Create Transcript
+                </button>
+              </div>
+              
+              <div className="row">
+                { notes.map((note, index) => {
+                  return(
+                    <div className="col-12 col-md-6 col-lg-4" key={index}>
+                      <div className="card mt-3">
+                        <div className="card-body">
+                          <p>{note.name}</p>
+                          <p>{note.description}</p>
+                          <p>{note.issuanceDate}</p>
+                        </div>
+                      </div>  
+                    </div>
+                  )
+                }) }
+              </div>
+              
             </div>
           </div>
         </div>
