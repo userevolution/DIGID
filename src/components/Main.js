@@ -1,4 +1,4 @@
-import react, { useState } from 'react';
+import React, { useState } from 'react';
 import { DID } from 'dids'
 import { IDX } from '@ceramicstudio/idx'
 import { CeramicApi } from '@ceramicnetwork/common'

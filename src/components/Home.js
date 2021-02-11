@@ -1,4 +1,5 @@
-import react from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Home(){
 	return(
@@ -13,7 +14,9 @@ function Home(){
 						<h2 className="text-secondary-color mt-5 text-center title">
 							Share Files Privately
 						</h2>
-						<button className="btn bg-secondary-color btn-lg d-block mx-auto w-75">Sign In</button>
+						<Link className="btn bg-secondary-color btn-lg d-block mx-auto w-75" to="login">
+							Sign In
+						</Link>
 						<p className="text-secondary-color mt-5 text-center h3">
 							Secure Identitiy
 						</p>
