@@ -2,6 +2,20 @@ import React, { useState } from 'react';
 
 function Profile({ updateProfile, idxId, name, description }) {
   const [newName, setNewName] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function updateName(){
+    try{
+      setLoading(true);
+      await updateProfile(newName);
+      setNewName('');
+      setLoading(false);
+    }
+    catch(err){
+      console.error(err);
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="container" style={{ minHeight: "80vh" }}>
@@ -25,9 +39,18 @@ function Profile({ updateProfile, idxId, name, description }) {
                 />
               </div>
 
-              <button  className="btn bg-secondary-color btn-block" onClick={() => updateProfile(newName)}>
-                Update
-              </button>
+              {loading
+              ? (
+                <div className="spinner-grow text-primary d-block mx-auto " role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              ) 
+              : (
+                <button className="btn bg-secondary-color btn-block" onClick={updateName}>
+                  Update
+                </button>
+              )}
+
             </div>
           </div>
         </div>
