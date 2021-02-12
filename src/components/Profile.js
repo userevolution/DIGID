@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import ipfsClient from 'ipfs-http-client';
-
-// const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 
 function Profile({ updateProfile, idxId, name, description, notes }) {
   const [newName, setNewName] = useState('');
@@ -74,8 +71,8 @@ function Profile({ updateProfile, idxId, name, description, notes }) {
                     <div className="col-12 col-md-6 col-lg-4" key={index}>
                       <div className="card mt-3">
                         <div className="card-body">
+                          <img className="card-img-top" src={`https://ipfs.infura.io/ipfs/${note.description}`} alt="File" />
                           <p>{note.name}</p>
-                          <p>{note.description}</p>
                           <p>{note.issuanceDate}</p>
                         </div>
                       </div>  
