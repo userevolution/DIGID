@@ -88,7 +88,15 @@ function App() {
 
     const encryptedNote = await window.did?.createDagJWE(noteData, recipients);
     record.notes.push(encryptedNote);
+
     await window.idx?.set('basicTranscript', record);
+
+    const newNote = {
+      name: title,
+      description: description,
+      issuanceDate: date
+    }
+    await setNotes([...notes, newNote]);
   }
 
   return (
@@ -106,7 +114,6 @@ function App() {
             updateProfile={updateProfile}
             idxId={idxId}
             name={name}
-            description={description}
             notes={notes}
             />
         </Route>

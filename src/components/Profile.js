@@ -27,7 +27,6 @@ function Profile({ updateProfile, idxId, name, description, notes }) {
               <h1>Your Profile</h1>
               <p>{idxId}</p>
               <p>{name}</p>
-              <p>{description}</p>
 
               <div className="form-group">
                 <label>New Name</label>

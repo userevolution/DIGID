@@ -31,6 +31,10 @@
     cursor: pointer;
     top: 3px;
     right: 3px;
+    padding: 3px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: #eaedf8;
 }
 
 .relative { position: relative; }
