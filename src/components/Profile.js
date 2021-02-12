@@ -104,7 +104,7 @@ function Profile({ updateProfile, getSomeoneNotes, idxId, name, notes, someoneNo
 
           <div className="card mt-3">
             <div className="card-body">
-              <h2>See someone files</h2>
+              <h2>Search</h2>
 
               <div className="form-group">
                 <label>Enter the DID of the user</label>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory  } from 'react-router-dom';
 import { DID } from 'dids';
 import { IDX } from '@ceramicstudio/idx';
 import { CeramicApi } from '@ceramicnetwork/common';
@@ -17,6 +17,8 @@ import Profile from './components/Profile';
 import CreateFile from './components/CreateFile';
 
 function App() {
+  const history = useHistory();
+
   const [idxMethod, setidxMethod] = useState(null);
   const [idxId, setidxId] = useState('');
   const [name, setName] = useState('');
@@ -75,7 +77,6 @@ function App() {
   }
 
   async function getSomeoneNotes(idxId){
-    console.log("test")
     if(idxId && !idxId.startsWith('did')){
       return
     }
@@ -122,9 +123,15 @@ function App() {
     await setNotes([...notes, newNote]);
   }
 
+  const logout = async () => {
+    await setidxId('');
+    await setNotes([]);
+    await setSomeoneNotes([]);
+  }
+
   return (
     <Router>
-      <Navbar />
+      <Navbar logout={logout} idxId={idxId}/>
 
       <Switch>
         <Route path="/login">
