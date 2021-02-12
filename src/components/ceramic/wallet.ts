@@ -4,6 +4,7 @@ import Authereum from 'authereum'
 import type { DIDProvider } from 'dids'
 import Fortmatic from 'fortmatic'
 import Web3Modal from 'web3modal'
+import Portis from "@portis/web3";
 
 // @ts-ignore
 export const threeID = new ThreeIdConnect()
@@ -12,6 +13,12 @@ export const web3Modal = new Web3Modal({
   network: 'mainnet',
   cacheProvider: true,
   providerOptions: {
+    portis: {
+      package: Portis, // required
+      options: {
+        id: "42a3bba4-3582-4658-8ee7-11d70637b772" // required
+      }
+    },
     walletconnect: {
       package: WalletConnectProvider,
       options: {
