@@ -14,6 +14,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import CreateFile from './components/CreateFile';
 
 function App() {
   const [idxMethod, setidxMethod] = useState(null);
@@ -37,7 +38,7 @@ function App() {
     const data = await idx.get('basicTranscript', idx.id)
     console.log(data)
 
-    loadNotes(idx.id)
+    await loadNotes(idx.id)
     //setName(data.name)
     //setDescription(data.description)
   }
@@ -50,27 +51,44 @@ function App() {
     setDescription(data.description)
   }
 
-  const loadNotes = async (idxId) => {
+  async function loadNotes(idxId){
+    console.log(idxId, "D")
     if(idxId && !idxId.startsWith('did')){
       return
     }
     const record = await window.idx?.get('basicTranscript', idxId);
-  
+    
     record?.notes.map(async (encryptedNote, mapindex) => {
       try {
         const { recipient, note } = await window.did?.decryptDagJWE(encryptedNote);
         if(recipient){
-          return
+          //return
         }
         const newNote = {
           name: note[0],
           description: note[1],
           issuanceDate: note[2]
         }
-
         setNotes([...notes, newNote]);
       } catch (e) {}
     })
+  }
+
+  const createTranscript = async(title, description, date) => {
+    const record = await window.idx?.get('basicTranscript') || { notes : []  };
+    const recipient = idxId;
+    const degreetitle = title;
+    const degreedescription = description;
+    const issuancedate = date;
+    const note =  [degreetitle, degreedescription, issuancedate];
+    const noteData = { recipient, note };
+    const recipients = [window.did?.id]; // always make ourselves a recipient
+
+    if (recipient) recipients.push(recipient);
+
+    const encryptedNote = await window.did?.createDagJWE(noteData, recipients);
+    record.notes.push(encryptedNote);
+    await window.idx?.set('basicTranscript', record);
   }
 
   return (
@@ -90,6 +108,11 @@ function App() {
             name={name}
             description={description}
             notes={notes}
+            />
+        </Route>
+        <Route path="/create-file">
+          <CreateFile
+            createTranscript={createTranscript}
             />
         </Route>
         <Route path="/">

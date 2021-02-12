@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+// import ipfsClient from 'ipfs-http-client';
+
+// const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 
 function Profile({ updateProfile, idxId, name, description, notes }) {
   const [newName, setNewName] = useState('');
@@ -59,9 +63,9 @@ function Profile({ updateProfile, idxId, name, description, notes }) {
             <div className="card-body">
               <div className="d-flex justify-content-between mb-3">
                 <h2>Your Files</h2>
-                <button className="btn  bg-secondary-color">
-                  Create Transcript
-                </button>
+                <Link className="btn bg-secondary-color" to="create-file">
+                  Add File
+                </Link>
               </div>
               
               <div className="row">
