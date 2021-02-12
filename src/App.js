@@ -22,6 +22,7 @@ function App() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [notes, setNotes] = useState([]);
+  const [someoneNotes, setSomeoneNotes] = useState([]);
 
   const ceramicPromise = createCeramic();
 
@@ -52,7 +53,6 @@ function App() {
   }
 
   async function loadNotes(idxId){
-    console.log(idxId, "D")
     if(idxId && !idxId.startsWith('did')){
       return
     }
@@ -74,9 +74,32 @@ function App() {
     })
   }
 
-  const createTranscript = async(title, description, date) => {
+  async function getSomeoneNotes(idxId){
+    console.log("test")
+    if(idxId && !idxId.startsWith('did')){
+      return
+    }
+    const record = await window.idx?.get('basicTranscript', idxId);
+    
+    record?.notes.map(async (encryptedNote, mapindex) => {
+      try {
+        const { recipient, note } = await window.did?.decryptDagJWE(encryptedNote);
+        if(recipient){
+          //return
+        }
+        const newNote = {
+          name: note[0],
+          description: note[1],
+          issuanceDate: note[2]
+        }
+        setSomeoneNotes([...notes, newNote]);
+      } catch (e) {}
+    })
+  }
+
+  const createTranscript = async(recipientDID, title, description, date) => {
     const record = await window.idx?.get('basicTranscript') || { notes : []  };
-    const recipient = idxId;
+    const recipient = recipientDID;
     const degreetitle = title;
     const degreedescription = description;
     const issuancedate = date;
@@ -112,9 +135,11 @@ function App() {
         <Route path="/profile">
           <Profile
             updateProfile={updateProfile}
+            getSomeoneNotes={getSomeoneNotes}
             idxId={idxId}
             name={name}
             notes={notes}
+            someoneNotes={someoneNotes}
             />
         </Route>
         <Route path="/create-file">

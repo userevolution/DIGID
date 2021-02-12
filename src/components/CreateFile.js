@@ -6,7 +6,8 @@ const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' 
 
 function CreateFile({ createTranscript }) {
   const history = useHistory();
-
+  
+  const [recipient, setRecipient] = useState('');
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,7 @@ function CreateFile({ createTranscript }) {
         if(error) {
           console.error(error);
         }
-        await createTranscript(title, result[0].hash, date);
+        await createTranscript(recipient, title, result[0].hash, date);
         history.push('/profile');
         setLoading(false);
       });
@@ -51,6 +52,18 @@ function CreateFile({ createTranscript }) {
           <div className="card mt-3">
             <div className="card-body">
               <h1>Add File</h1>
+
+              <div className="form-group">
+                <label>Recipient to share the file with</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="recipient"
+                  value={recipient}
+                  placeholder="Recipient DID"
+                  onChange={(e) => setRecipient(e.target.value)} 
+                />
+              </div>
 
               <div className="form-group">
                 <label>Title</label>
