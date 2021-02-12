@@ -32,7 +32,7 @@ function Login({ authenticate }) {
               ) 
               : (
                 <button className="btn bg-secondary-color btn-block" onClick={handleLogin}>
-                  Login
+                  Connect to your Wallet
                 </button>
               )}
           </div>

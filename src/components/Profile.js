@@ -71,7 +71,12 @@ function Profile({ updateProfile, idxId, name, description, notes }) {
                     <div className="col-12 col-md-6 col-lg-4" key={index}>
                       <div className="card mt-3">
                         <div className="card-body">
-                          <img className="card-img-top" src={`https://ipfs.infura.io/ipfs/${note.description}`} alt="File" />
+                          <img className="card-img-top relative" src={`https://ipfs.infura.io/ipfs/${note.description}`} alt="File" />
+                          <img
+                            className="copy-icon"
+                            onClick={() => {navigator.clipboard.writeText(`https://ipfs.infura.io/ipfs/${note.description}`)}}
+                            src="/images/copyicon.svg"
+                            alt="Copy Icon" />
                           <p>{note.name}</p>
                           <p>{note.issuanceDate}</p>
                         </div>

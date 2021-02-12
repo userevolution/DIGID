@@ -25,4 +25,13 @@
     width: 100px;
 }
 
+.copy-icon{
+    position: absolute;
+    width: 25px;
+    cursor: pointer;
+    top: 3px;
+    right: 3px;
+}
+
+.relative { position: relative; }
 .mt-10{ margin-top: 10rem !important; }
