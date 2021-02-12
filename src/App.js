@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, useHistory  } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 import { DID } from 'dids';
 import { IDX } from '@ceramicstudio/idx';
 import { CeramicApi } from '@ceramicnetwork/common';
@@ -17,8 +17,6 @@ import Profile from './components/Profile';
 import CreateFile from './components/CreateFile';
 
 function App() {
-  const history = useHistory();
-
   const [idxMethod, setidxMethod] = useState(null);
   const [idxId, setidxId] = useState('');
   const [name, setName] = useState('');
@@ -78,7 +76,7 @@ function App() {
 
   async function getSomeoneNotes(idxId){
     if(idxId && !idxId.startsWith('did')){
-      return
+      idxId = await ethAddressToDID(idxId);
     }
     const record = await window.idx?.get('basicTranscript', idxId);
     
@@ -98,7 +96,20 @@ function App() {
     })
   }
 
+  const ethAddressToDID = async (address) => {
+    const caip10Doc = await window.ceramic?.createDocument('caip10-link', {
+      metadata: {
+        family: 'caip10-link',
+        controllers: [address.toLowerCase() + '@eip155:1']
+      }
+    })
+    return caip10Doc?.content;
+  }
+
   const createTranscript = async(recipientDID, title, description, date) => {
+    if(recipientDID && !recipientDID.startsWith('did')){
+      recipientDID = await ethAddressToDID(recipientDID);
+    }
     const record = await window.idx?.get('basicTranscript') || { notes : []  };
     const recipient = recipientDID;
     const degreetitle = title;

@@ -60,7 +60,7 @@ function CreateFile({ createTranscript }) {
                   type="text"
                   name="recipient"
                   value={recipient}
-                  placeholder="Recipient DID"
+                  placeholder="Recipient DID or Wallet Address"
                   onChange={(e) => setRecipient(e.target.value)} 
                 />
               </div>

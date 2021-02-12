@@ -72,7 +72,7 @@ function Profile({ updateProfile, getSomeoneNotes, idxId, name, notes, someoneNo
         <div className="col-12 col-md-8">
           <div className="card mt-3">
             <div className="card-body">
-              <div className="d-flex justify-content-between mb-3">
+              <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2>Your Files</h2>
                 <Link className="btn bg-secondary-color" to="create-file">
                   Add File
@@ -107,14 +107,13 @@ function Profile({ updateProfile, getSomeoneNotes, idxId, name, notes, someoneNo
               <h2>Search</h2>
 
               <div className="form-group">
-                <label>Enter the DID of the user</label>
+                <label>Enter the DID or wallet address of the user</label>
                 <div className="d-flex">
                   <input
                     className="form-control"
                     type="text"
                     name="recipient"
                     value={recipient}
-                    placeholder="Recipient DID"
                     onChange={(e) => setRecipient(e.target.value)} 
                   />
                   {loading
